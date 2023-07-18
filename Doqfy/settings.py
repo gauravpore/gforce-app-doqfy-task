@@ -136,4 +136,3 @@ EMAIL_HOST = "smtp.outlook.com"
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "gforce1310@outlook.com"
-EMAIL_HOST_PASSWORD = "zxcvbnm@123"
