@@ -1,7 +1,4 @@
 # gforce-app-doqfy-task
-# Django OTP-Based User Authentication and Search
-
-This project implements OTP-based user authentication and search functionality using Django. Users can sign up, log in using OTP sent to their email or phone number, and search for information related to cities, countries, or languages. The project utilizes Django's default user table and extends it with a custom user model that includes additional fields.
 
 # Features
 
