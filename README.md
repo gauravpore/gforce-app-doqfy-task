@@ -1,6 +1,6 @@
 # gforce-app-doqfy-task
 
-# Features
+# 🔸Features
 
 * User signup: Users can create a new account by providing their first name, last name, gender, email, and phone number.
 * OTP-based login: When a user attempts to log in, an OTP is sent to their registered email or phone number. The user must provide the correct OTP to authenticate.
@@ -10,7 +10,7 @@
 * Search results: After pressing the search button, a list of relevant information related to the search query is displayed on a new screen.
 * Country details: Whenever the name of a country appears, it is clickable and redirects users to a "Country Details" page, which provides in-depth information about the selected country.
 
-## Technologies Used
+## 🔸Technologies Used
 * Django: Web framework for building the application.
 * Django Rest Framework (DRF): Used for creating API endpoints.
 * HTML/CSS: Front-end markup and styling.
@@ -18,7 +18,7 @@
 * MySQL: Utilizes a SQL database to store user data and populate information about cities, countries, and languages.
 * Postman: API Testing application for testing endpoints.
 
-## Installations and Setup
+## 🔸Installations and Setup
 
 * Clone the repository:
  ```bash 
@@ -45,7 +45,7 @@ python manage.py runserver
 ```
 Access the application in your browser at http://localhost:8000/
 
-## API Endpoints
+## 🔸API Endpoints
 ```
 POST /signup/: Create a new user account.
 POST /send-otp-email/: Sends 6-digit otp to user's email for login purpose.
