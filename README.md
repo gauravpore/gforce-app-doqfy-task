@@ -47,6 +47,9 @@ Access the application in your browser at http://localhost:8000/
 
 ## API Endpoints
 ```
-POST /api/signup/: Create a new user account.
-POST /api/login/: Send OTP for user login and authentication.
+POST /signup/: Create a new user account.
+POST /send-otp-email/: Sends 6-digit otp to user's email for login purpose.
+POST /verify-otp/: Validates user entered 6-digit otp to authenticate the user.
+GET /search-results/: Returns entire Country, City & CountryLanguage data to feed autosuggest search feature on dashboard.
+GET /country-details/: Returns serialized country data from database based on country_code to display on country-details page.
 ```
