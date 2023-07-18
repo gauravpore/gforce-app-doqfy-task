@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "css/login.css" %}" />
+  </head>
+  <body>
+    <div class="banner">
+      <h1>Gforce App</h1>
+    </div>
+    <div class="login-form-container">
+      <h2>Login</h2>
+      <form
+        action="/verify-otp/"
+        enctype="application/json"
+        method="post"
+        class="login-form"
+      >
+        {% csrf_token %}
+        <label for="otp">Invalid OTP, Please Enter the OTP right</label>
+        <input
+          placeholder="Enter OTP here"
+          type="text"
+          id="otp"
+          name="otp"
+          required
+          pattern="[0-9]{6}"
+        />
+        <br />
+        <input type="submit" value="Verify OTP" />
+      </form>
+      <div class="signup-link">
+        <a href="/signup-page/">Don't have an account? Sign up</a>
+      </div>
+    </div>
+  </body>
+</html>

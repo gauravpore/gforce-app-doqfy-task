@@ -1,10 +1,12 @@
 from django.db.models import QuerySet
 from gforce.models import CustomUser, Otp
-
 from gforce.repositories.base import BaseRepository
 
 
 class CustomUserRepository(BaseRepository):
+    """
+    Repository class for managing custom user data.
+    """
     def __init__(
         self,
         *args,
@@ -21,19 +23,27 @@ class CustomUserRepository(BaseRepository):
     def create_user(user_data: dict):
         """
         Registers/Creates a new user.
-        Params:
-            validated_data -> validated form data from the incoming request
+
+        Args:
+            user_data (dict): Validated form data from the incoming request.
+
         Returns:
-            (CustomUser or success, message)
+            Union[bool, tuple]: A tuple indicating the success status and either the created user object or an error message.
         """
-        mobile_number = user_data.get("mobile_number")
-        first_name = user_data.get("first_name")
-        last_name = user_data.get("last_name")
+        mobile_number = user_data.get("mobile")
+        first_name = user_data.get("fname")
+        last_name = user_data.get("lname")
         email = user_data.get("email")
         gender = user_data.get("gender")
+        if type(email) == list:
+            first_name = first_name[0]
+            last_name = last_name[0]
+            email = email[0]
+            mobile_number = mobile_number[0]
+            gender = gender[0]
         if not email or not first_name:
             return False, "Invalid params"
-        user = CustomUser.objects.filter(email=email, mobile_number=mobile_number)
+        user = CustomUser.objects.filter(email=email)
         if user:
             return False, "User already exists with provided email or mobile number"
         user = CustomUser.objects.create(
@@ -49,11 +59,14 @@ class CustomUserRepository(BaseRepository):
     @staticmethod
     def create_otp_record(email, otp):
         """
-        Registers/Creates a new user.
-        Params:
-            validated_data -> validated form data from the incoming request
+        Creates an OTP record for the user.
+
+        Args:
+            email (str): Email address of the user.
+            otp (str): One-Time Password generated for the user.
+
         Returns:
-            (CustomUser or success, message)
+            Union[bool, tuple]: A tuple indicating the success status and either the created OTP record object or an error message.
         """
         otp_record = Otp.objects.filter(email=email).first()
         if otp_record:
@@ -65,15 +78,33 @@ class CustomUserRepository(BaseRepository):
         return True, otp_record
 
     @staticmethod
-    def verify_otp(email, otp):
+    def verify_otp(otp):
         """
-        Registers/Creates a new user.
-        Params:
-            validated_data -> validated form data from the incoming request
+        Verifies the provided OTP.
+
+        Args:
+            otp (str): One-Time Password to be verified.
+
         Returns:
-            (CustomUser or success, message)
+            Union[bool, tuple]: A tuple indicating the success status and either a success message or an error message.
         """
-        otp_record = Otp.objects.filter(email=email, otp=otp)
+        otp_record = Otp.objects.filter(otp=otp)
         if otp_record:
             return True, "Otp verified successfully"
         return False, "Invalid Otp"
+
+    @staticmethod
+    def validate_user(email):
+        """
+        Validates a user based on the provided email address.
+
+        Args:
+            email (str): Email address of the user.
+
+        Returns:
+            Union[bool, tuple]: A tuple indicating the success status and either a success message or an error message.
+        """
+        user = CustomUser.objects.filter(email=email)
+        if not user:
+            return False, "User not found"
+        return True, "User validated successfully"

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "css/login.css" %}" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Clear the email input field on page refresh
+        document.getElementById("email").value = "";
+      });
+    </script>
+  </head>
+  <body>
+    <div class="banner">
+      <h1>Gforce App</h1>
+    </div>
+    <div class="login-form-container">
+      <h2>Login</h2>
+      <form
+        action="/send-otp-email/"
+        enctype="application/json"
+        method="post"
+        class="login-form"
+      >
+        {% csrf_token %}
+        <input
+          placeholder="email or mobile number"
+          type="text"
+          id="email"
+          name="email"
+          required
+          autocomplete="off"
+        />
+        <br />
+        <input type="submit" value="Send OTP" />
+      </form>
+      <div class="signup-link">
+        <a href="/signup-page/">Don't have an account? Sign up</a>
+      </div>
+    </div>
+  </body>
+</html>

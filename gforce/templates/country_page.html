@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static "css/country.css" %}" />
+  </head>
+  <body>
+    <div class="top-container">
+      <div class="banner">
+        <h1>Gforce App</h1>
+      </div>
+      <div id="logout-container">
+        <form action="/login-page/">
+          <button id="logout-btn">Logout</button>
+        </form>
+      </div>
+    </div>
+    <div class="bottom-container">
+      <h1 class="box">Country Details: {{ country.name }}</h1>
+      <table>
+        <tr>
+          <th>Field</th>
+          <th>Value</th>
+        </tr>
+        <tr>
+          <td>Code</td>
+          <td id="code">{{ country.code }}</td>
+        </tr>
+        <tr>
+          <td>Name</td>
+          <td id="name">{{ country.name }}</td>
+        </tr>
+        <tr>
+          <td>Continent</td>
+          <td id="continent">{{ country.continent }}</td>
+        </tr>
+        <tr>
+          <td>Region</td>
+          <td id="region">{{ country.region }}</td>
+        </tr>
+        <tr>
+          <td>Surface Area</td>
+          <td id="surfacearea">{{ country.surfacearea }}</td>
+        </tr>
+        <tr>
+          <td>Independence Year</td>
+          <td id="indepyear">{{ country.indepyear }}</td>
+        </tr>
+        <tr>
+          <td>Population</td>
+          <td id="population">{{ country.population }}</td>
+        </tr>
+        <tr>
+          <td>Life Expectancy</td>
+          <td id="lifeexpectancy">{{ country.lifeexpectancy }}</td>
+        </tr>
+        <tr>
+          <td>GNP</td>
+          <td id="gnp">{{ country.gnp }}</td>
+        </tr>
+        <tr>
+          <td>GNP Old</td>
+          <td id="gnpold">{{ country.gnpold }}</td>
+        </tr>
+        <tr>
+          <td>Local Name</td>
+          <td id="localname">{{ country.localname }}</td>
+        </tr>
+        <tr>
+          <td>Government Form</td>
+          <td id="governmentform">{{ country.governmentform }}</td>
+        </tr>
+        <tr>
+          <td>Head of State</td>
+          <td id="headofstate">{{ country.headofstate }}</td>
+        </tr>
+        <tr>
+          <td>Capital</td>
+          <td id="capital">{{ country.capital }}</td>
+        </tr>
+        <tr>
+          <td>Code 2</td>
+          <td id="code2">{{ country.code2 }}</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    {% comment %}
+    <link rel="stylesheet" href="home.css" />
+    {% endcomment %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+
+    <link
+      href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <body>
+    <h1>Search</h1>
+    <input type="text" id="tags" />
+    <button id="submit-button">Submit</button>
+    <script>
+      $(function() {
+        var availableTags = [
+          {% for country in countries %}
+            "{{country.name}}, {{country.continent}}",
+          {% endfor %}
+          {% for city in cities %}
+            "{{city.name}}, {{city.district}}",
+          {% endfor %}
+          {% for l in languages %}
+            "{{l.language}}, {{l.countrycode}}",
+          {% endfor %}
+        ];
+
+        $("#tags").autocomplete({
+          source: availableTags
+        });
+
+        // Submit button click event
+        $("#submit-button").click(function() {
+          var searchValue = $("#tags").val();
+          console.log("Search value:", searchValue);
+          if (searchValue) {
+            // Send AJAX request to retrieve relevant information
+            $.ajax({
+              url: "/search-results",
+              method: "GET",
+              data: { query: searchValue },
+              success: function(response) {
+                // Clear previous results
+                $("#results-container").empty();
+
+                // Render the search results in the results container
+                for (var i = 0; i < response.length; i++) {
+                  var result = response[i];
+                  var resultHtml = "<p>";
+
+                  if (result.type === "Country") {
+                    resultHtml += '<a href="/country-details/' + result.country_code + '">';
+                  }
+
+                  resultHtml += result.name;
+
+                  if (result.type === "Country") {
+                    resultHtml += "</a>";
+                  }
+
+                  resultHtml += "</p>";
+                  $("#results-container").append(resultHtml);
+                }
+              },
+              error: function(error) {
+                console.log("Error:", error);
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
